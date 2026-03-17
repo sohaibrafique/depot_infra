@@ -943,7 +943,7 @@ div[data-testid="stAlert"] { border-radius: 8px; }
 # ============================================================================
 
 def main():
-    st.set_page_config(page_title="Depot Infrastructure Tool", page_icon="⚡",
+    st.set_page_config(page_title="Depot Infrastructure Tool",
                        layout="wide", initial_sidebar_state="expanded")
 
     st.markdown(BRAND_CSS, unsafe_allow_html=True)
@@ -976,11 +976,8 @@ def main():
         <div style="max-width: 420px; margin: 4rem auto; text-align: center;">
             <div style="background: linear-gradient(135deg, #021526 0%, #0A2A3E 50%, #065A82 100%);
                         padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
-                <div style="color: #FFFFFF; font-size: 1.6rem; font-weight: 700;">
-                    ⚡ Depot Infrastructure Tool
-                </div>
-                <div style="color: #02C39A; font-size: 0.9rem; margin-top: 6px;">
-                    Beyond EV
+                <div style="color: #FFFFFF; font-size: 4rem; font-weight: 700;">
+                    Depot Infrastructure Tool
                 </div>
             </div>
         </div>
