@@ -872,7 +872,7 @@ div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
 }
 .brand-header .brand-title {
     color: #FFFFFF;
-    font-size: 4rem;
+    font-size: 2rem;
     font-weight: 700;
     line-height: 1.2;
     margin: 0;
@@ -943,25 +943,106 @@ div[data-testid="stAlert"] { border-radius: 8px; }
 # ============================================================================
 
 def main():
-    st.set_page_config(page_title="Depot Infrastructure Tool",
+    st.set_page_config(page_title="Depot Infrastructure Tool", page_icon="⚡",
                        layout="wide", initial_sidebar_state="expanded")
 
     st.markdown(BRAND_CSS, unsafe_allow_html=True)
+
+    # ================================================================
+    # AUTHENTICATION
+    # ================================================================
+    # Add/remove users here. Passwords are SHA-256 hashed.
+    # To generate a hash: python -c "import hashlib; print(hashlib.sha256(b'yourpassword').hexdigest())"
+    import hashlib
+
+    AUTHORISED_USERS = {
+        "admin": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",  # admin
+        "beyondev": "d491962f0aa55e7eb92253069bda864cdbdfc7e3701059b52c6c28f09b25e93d",  # beyondev2026
+        "demo": "43c27b4e263fa191a6a7ec198cd4d5b47d17413c49d77dc533a01720707e3202",  # demo2026
+    }
+
+    def check_password(username, password):
+        if username in AUTHORISED_USERS:
+            return hashlib.sha256(password.encode()).hexdigest() == AUTHORISED_USERS[username]
+        return False
+
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+        st.session_state.username = ""
+
+    if not st.session_state.authenticated:
+        # Login page — branded
+        st.markdown("""
+        <div style="max-width: 420px; margin: 4rem auto; text-align: center;">
+            <div style="background: linear-gradient(135deg, #021526 0%, #0A2A3E 50%, #065A82 100%);
+                        padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+                <div style="color: #FFFFFF; font-size: 1.6rem; font-weight: 700;">
+                    ⚡ Depot Infrastructure Tool
+                </div>
+                <div style="color: #02C39A; font-size: 0.9rem; margin-top: 6px;">
+                    Beyond EV
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col_left, col_form, col_right = st.columns([1, 1.2, 1])
+        with col_form:
+            st.markdown("#### Sign In")
+            username = st.text_input("Username", key="login_user", placeholder="Enter username")
+            password = st.text_input("Password", type="password", key="login_pass", placeholder="Enter password")
+
+            if st.button("Sign In", type="primary", use_container_width=True):
+                if check_password(username, password):
+                    st.session_state.authenticated = True
+                    st.session_state.username = username
+                    st.rerun()
+                else:
+                    st.error("Invalid username or password.")
+
+            st.caption("Contact your administrator for access credentials.")
+
+        st.stop()  # Nothing below renders until authenticated
+
+    # ---- Logout button in sidebar ----
+    # (placed here so it appears at the top of sidebar on every page)
 
     # Brand header with logo
     st.markdown("""
     <div class="brand-header">
         <div>
-            <div class="brand-title">Depot Infrastructure Tool</div>
+            <div class="brand-title">⚡ Depot Infrastructure Tool</div>
+            <div class="brand-subtitle">
+                Infrastructure sizing → Charger selection → Charging schedule → Load profile → Upgrade path
+            </div>
         </div>
         <div class="brand-logo">
-            <img src="data:image/jpeg;base64,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" style="width:120px;height:120px;border-radius:8px;" />
+            <img src="data:image/jpeg;base64,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" style="width:48px;height:48px;border-radius:8px;" />
+            <div>
+                <div class="brand-logo-text">Beyond EV</div>
+                <div class="brand-tag" style="margin-top:4px">NEXUSCHARGE</div>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     # ---- SIDEBAR ----
     with st.sidebar:
+        # User info and logout
+        st.markdown(f"""
+        <div style="display:flex; align-items:center; justify-content:space-between;
+                    padding: 8px 0 12px 0; margin-bottom: 8px;
+                    border-bottom: 1px solid rgba(200,230,245,0.15);">
+            <span style="color: #A8D4E6; font-size: 0.82rem;">
+                Signed in as <strong style="color:#02C39A">{st.session_state.username}</strong>
+            </span>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Sign Out", key="logout_btn"):
+            st.session_state.authenticated = False
+            st.session_state.username = ""
+            st.rerun()
+
         st.markdown("### ⚙️ Configuration")
 
         st.subheader("Energy Tariff")
