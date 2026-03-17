@@ -872,7 +872,7 @@ div[data-testid="stMetric"] div[data-testid="stMetricValue"] {
 }
 .brand-header .brand-title {
     color: #FFFFFF;
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: 700;
     line-height: 1.2;
     margin: 0;
