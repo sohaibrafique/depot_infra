@@ -1041,7 +1041,7 @@ def main():
         st.subheader("Energy Tariff")
         dt = get_default_tariff(); tps = []
         for i, t in enumerate(dt):
-            with st.expander(t['name'].replace('_',' ').title(), expanded=(i==0)):
+            with st.expander(t['name'].replace('_',' ').title(), expanded=False):
                 rate = st.number_input("$/kWh", value=t["rate_dollars_per_kwh"],
                     min_value=0.0, max_value=2.0, step=0.01, key=f"r{i}")
                 s_ = st.text_input("Start", value=t["start_time"], key=f"s{i}")
