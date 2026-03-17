@@ -976,7 +976,7 @@ def main():
         <div style="max-width: 420px; margin: 4rem auto; text-align: center;">
             <div style="background: linear-gradient(135deg, #021526 0%, #0A2A3E 50%, #065A82 100%);
                         padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
-                <div style="color: #FFFFFF; font-size: 4rem; font-weight: 700;">
+                <div style="color: #FFFFFF; font-size: 2rem; font-weight: 700;">
                     Depot Infrastructure Tool
                 </div>
             </div>
