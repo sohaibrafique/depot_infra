@@ -1051,7 +1051,7 @@ def main():
 
         st.divider()
         st.subheader("Site Electrical")
-        scap = st.number_input("Existing Capacity (kW)", value=300.0, step=10.0,
+        scap = st.number_input("Existing Capacity (kW)", value=200.0, step=10.0,
                                 help="Current MSB rating of the site")
         bload = st.number_input("Base Load (kW)", value=50.0, step=5.0,
                                  help="Non-EV load (lighting, HVAC, offices)")
